@@ -1,4 +1,5 @@
 import 'package:expense_tracker/model/expence.dart';
+import 'package:expense_tracker/presentation/widgets/chart/chart.dart';
 import 'package:expense_tracker/presentation/widgets/expense_list/expenses_list.dart';
 import 'package:expense_tracker/presentation/widgets/new_expenses.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
         amount: 500,
-        title: 'Flutter Course',
+        title: 'Flutter course',
         date: DateTime.now(),
         category: Category.work),
     Expense(
@@ -91,7 +92,10 @@ class _ExpensesState extends State<Expenses> {
           ],
         ),
         body: Column(
-          children: [const Text('Chart'), Expanded(child: mainContent)],
+          children: [
+            Chart(expenses: _registeredExpenses),
+            Expanded(child: mainContent)
+          ],
         ));
   }
 }
