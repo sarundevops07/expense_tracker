@@ -27,29 +27,33 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (ctx) {
+          return AlertDialog(
+            title: const Text('Invalid input'),
+            content: const Text(
+                'Please make sure all fields are selected and valid'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(ctx);
+                },
+                child: const Text('Okay'),
+              )
+            ],
+          );
+        });
+  }
+
   void _submitExpenseData() {
     final enteredAmount = double.tryParse(amountController.text);
     final amoundIsInvalid = enteredAmount == null || enteredAmount <= 0;
     if (titleController.text.trim().isEmpty ||
         amoundIsInvalid ||
         _selectedDate == null) {
-      showDialog(
-          context: context,
-          builder: (ctx) {
-            return AlertDialog(
-              title: const Text('Invalid input'),
-              content: const Text(
-                  'Please make sure all fields are selected and valid'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(ctx);
-                  },
-                  child: const Text('Okay'),
-                )
-              ],
-            );
-          });
+      _showDialog();
       return;
     }
     widget.onAddExpense(Expense(
